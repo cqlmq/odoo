@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="syc_view_partner_form" model="ir.ui.view">
+        <field name="name">syc.res.partner.form.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <!-- 保持原有的结构，只调整字段顺序 -->
+            <xpath expr="//field[@name='street']" position="replace"/>
+            <xpath expr="//field[@name='street2']" position="replace"/>
+            <xpath expr="//field[@name='city']" position="replace"/>
+            <xpath expr="//field[@name='state_id']" position="replace"/>
+            <xpath expr="//field[@name='zip']" position="replace"/>
+            <xpath expr="//field[@name='country_id']" position="replace"/>
+
+            <!-- 在原位置重新添加字段，按照新的顺序 -->
+            <xpath expr="//div[hasclass('o_address_format')]" position="inside">
+                <field name="street" class="o_address_street"/>
+                <field name="street2" class="o_address_street"/>
+                <field name="city" class="o_address_city"/>
+                <field name="state_id" class="o_address_state" placeholder="State" options="{'no_open': True, 'no_create': True}"/>
+                <field name="zip" class="o_address_zip"/>
+                <field name="country_id" class="o_address_country" placeholder="Country" options='{"no_open": True, "no_create": True}'/>
+            </xpath>
+            
+            <!-- 添加自定义字段 -->
+            <field name="vat" position="after">
+                <field name="custom_partner_field"/>
+            </field>
+        </field>
+    </record>
+</odoo>
